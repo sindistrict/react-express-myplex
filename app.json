@@ -1,0 +1,6 @@
+{
+  "name": "MyPlex App",
+  "description": "A personal website for your Plex servers",
+  "repository": "https://github.com/sindistrict/react-express-myplex",
+  "addons": []
+}
