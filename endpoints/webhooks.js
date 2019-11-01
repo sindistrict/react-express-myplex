@@ -6,7 +6,7 @@ module.exports = (server) => {
 
     Axios.post('https://discordapp.com/api/webhooks/639878507563843597/N-_JK6PsH-EHSV5YegdEvmqSgia5yWyrsL6ToevSonGPlWjMqaVQqclq7TmqskYISTmt', {
 
-      content: JSON.stringify(req)
+      content: JSON.stringify(req.body)
       
     })
 
