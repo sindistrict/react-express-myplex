@@ -1,8 +1,11 @@
 const Axios = require('axios')
+const multer  = require('multer')
 
 module.exports = (server) => {
 
-  server.post('/api/webhooks-plex', async (req, res, next) => {
+  const upload = multer({ dest: '/tmp/' })
+
+  server.post('/api/webhooks-plex', upload.single('thumb'), (req, res, next) => {
 
     const payload = JSON.parse(req.body.payload)
 
