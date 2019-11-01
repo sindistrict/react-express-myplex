@@ -1,0 +1,10 @@
+# build files
+build/
+dist/
+
+# npm files
+node_modules/
+package-lock.json
+
+# database files
+database/*

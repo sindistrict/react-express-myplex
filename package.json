@@ -1,0 +1,21 @@
+{
+  "name": "myplex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "keywords": [
+    "plex",
+    "myplex",
+    "express",
+    "react"
+  ],
+  "author": "Sebastian Inman",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
