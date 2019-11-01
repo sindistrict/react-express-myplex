@@ -6,15 +6,17 @@ export default class Home extends React.Component {
 
     super()
     this.state = {
-      customers: []
+      users: []
     }
 
   }
 
   componentDidMount() {
-    fetch('/api/customers')
-      .then(result => result.json())
-      .then(customers => this.setState({customers}, () => console.log('Customers fetched from backend:', customers)))
+
+    fetch('/api/servers')
+      .then(response => response.json())
+      .then(data => console.log(data))
+
   }
 
   render() {
@@ -22,8 +24,8 @@ export default class Home extends React.Component {
     return <div>
       <h1>Home Page</h1>
       <ul>
-        {this.state.customers.map(customer => 
-        <li key={customer.id}>{customer.fname} {customer.lname}</li>
+        {this.state.users.map(user => 
+        <li key={user.id}>{user.username}<br/>{user.email}<br/></li>
         )}
       </ul>
     </div>

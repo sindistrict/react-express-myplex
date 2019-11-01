@@ -1,0 +1,22 @@
+@import './variables.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $theme-font-family;
+  font-size: $theme-font-size;
+}
+
+body {
+  background-color: $theme-background-color;
+  font-weight: 400;
+  margin: 0;
+}
+
+main {
+  height: 150vh;
+}

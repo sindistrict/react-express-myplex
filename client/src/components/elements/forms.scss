@@ -1,0 +1,31 @@
+@import '../../variables.scss';
+
+.input-wrapper {
+  flex-direction: column;
+  margin-bottom: 1rem;
+  display: flex;
+  width: 100%;
+  label {
+    line-height: 2rem;
+  }
+  input[type='text'],
+  input[type='password'] {
+    transition: border-color $theme-transition-timing $theme-transition-easing;
+    border: 2px solid $theme-element-border-color;
+    background-color: #FFFFFF;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    font-size: 1rem;
+    outline: none;
+    height: 3rem;
+  }
+  &:focus-within {
+    label {
+      color: $theme-element-border-color-active;
+    }
+    input[type='text'],
+    input[type='password'] {
+      border-color: $theme-element-border-color-active;
+    }
+  }
+}

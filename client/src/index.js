@@ -3,6 +3,9 @@ import { render as Render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch, Redirect, useParams } from 'react-router-dom'
 
 
+/** Universal styles. */
+import './universal.scss'
+
 /** Setup page. */
 import Setup from './pages/setup'
 
@@ -33,7 +36,7 @@ const Application = () => {
 
   function PrivateRoute({children, ...rest}) {
 
-    const authenticated = true
+    const authenticated = false
 
     return <Route {...rest} render={({location}) => 
            authenticated ? (children) : (
@@ -49,7 +52,7 @@ const Application = () => {
 
   function AdminRoute({children, ...rest}) {
 
-    const authenticated = true
+    const authenticated = false
     const isAdmin = false
 
     return <Route {...rest} render={({location}) => 

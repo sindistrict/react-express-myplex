@@ -15,7 +15,7 @@ import './grid.scss'
 
 
 /**
- * @method Elements/Grid
+ * @method Elements/Row
  * @description Authenticates a user via the Plex API using
  *              the provided username and password.
  * 
@@ -25,10 +25,10 @@ import './grid.scss'
  * @param [required] boolean
  * @param [onChange] function
  * 
- * @return [<Grid/>] Component
+ * @return [<Row/>] Component
  */
 
-export class Grid extends React.Component {
+export class Row extends React.Component {
 
   constructor(props) {
 
@@ -49,7 +49,7 @@ export class Grid extends React.Component {
 
     if(this.props.className) classes.push(this.props.className)
 
-    return <div className={"grid " + classes.join(' ')}>
+    return <div className={"row " + classes.join(' ')}>
             {this.props.children}
            </div>
 

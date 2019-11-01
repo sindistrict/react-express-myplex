@@ -1,0 +1,27 @@
+.alert {
+
+  &.notice,
+  &.warning {
+    transition: max-height 1.5s ease-out;
+    overflow: hidden;
+    display: flex;
+    max-height: 0;
+    > span {
+      background-color: #FDF5BF;
+      border: 1px solid #EFC88B;
+    }
+  }
+
+  > span {
+    margin: 0 0 1rem 0;
+    font-size: .75rem;
+    line-height: 1.5;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  &[visible="true"] {
+    max-height: 1000px
+  }
+
+}

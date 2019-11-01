@@ -1,21 +1,19 @@
 const express = require('express')
+const parser = require('body-parser')
 const path = require('path')
 
 const server = express()
 
+server.use(parser.urlencoded({ extended: false }))
+server.use(parser.json())
+
 server.use(express.static(path.join(__dirname, 'client/build')))
 
-server.get('/api/customers', (req, res) => {
+require('./endpoints/GET/servers')(server)
+require('./endpoints/GET/libraries')(server)
+require('./endpoints/GET/users')(server)
 
-  const customers = [
-    {id: 0, fname: 'Franklin', lname: 'Roosevelt'},
-    {id: 1, fname: 'Samuel',   lname: 'Adams'},
-    {id: 3, fname: 'Benjamin', lname: 'Franklin'}
-  ]
-
-  res.json(customers)
-
-})
+require('./endpoints/HOOKS/plex')(server)
 
 server.get('*', (req, res) => {
 
