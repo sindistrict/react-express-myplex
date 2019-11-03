@@ -1,17 +1,19 @@
-$theme-background-color: rgb(255, 255, 255);
-$theme-foreground-color: #333333;
+$theme-background-color: #FFFFFF;
+$theme-foreground-color: #282a2d;
+$theme-foreground-body-color: #575b61;
+$theme-foreground-headline-color: #282a2d;
 
-$theme-header-background-color: rgba(255, 255, 255, 0.97);
+$theme-header-background-color: rgba($theme-background-color, 0.97);
 
-$theme-accent-primary-background: #1D201F;
-$theme-accent-primary-background-active: #161616;
+$theme-accent-primary-background: #E5A00D;
+$theme-accent-primary-background-active: #DB9500;
 $theme-accent-primary-foreground: #FFFFFF;
 
-$theme-accent-secondary: #0000FF;
+$theme-accent-secondary: #282a2d;
 $theme-accent-secondary-active: #0000AA;
 
-$theme-element-border-color: #D0D0D0;
-$theme-element-border-color-active: #1D201F;
+$theme-element-border-color: #E0E3E6;
+$theme-element-border-color-active: #B3BAC1;
 
 $theme-transition-easing: ease-in-out;
 $theme-transition-timing: 0.135s;

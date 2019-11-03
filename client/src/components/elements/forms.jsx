@@ -38,11 +38,47 @@ export class Form extends React.Component {
 
   submitHandler = (e) => {
 
+    e.preventDefault()
+
+    let form = e.target
+    let inputs = form.elements
+
     let data = {}
 
-    for(let i = 0; i < e.target.length; i++) {
-      let field = e.target.elements[i];
-      if(field.name) data[field.name] = field.value
+    for(let i = inputs.length - 1; i >= 0; i = i - 1) {
+
+      if(inputs[i].name === '') continue;
+
+      switch(inputs[i].nodeName) {
+
+        case 'INPUT':
+          switch(inputs[i].type) {
+            case 'text':
+            case 'hidden':
+            case 'password':
+            case 'email':
+            case 'tel':
+            case 'number':
+            case 'search':
+              data[inputs[i].name] = inputs[i].value
+              break;
+            case 'checkbox':
+            case 'radio':
+              data[inputs[i].name] = data[inputs[i].name] || []
+              if(inputs[i].checked) {
+                data[inputs[i].name].push(inputs[i].value)
+              }
+              break;
+          }
+          break;
+
+        case 'TEXTAREA':
+        case 'SELECT':
+          data[inputs[i].name] = inputs[i].value
+          break;
+
+      }
+
     }
 
     this.setState({ submitted: true })
@@ -52,15 +88,22 @@ export class Form extends React.Component {
 
   render() {
 
-    return <div className="form-wrapper">
-             <form
-               id={this.props.id || ''}
-               method={this.props.method || 'POST'}
-               action={this.props.action || '/'}
-               onSubmit={this.submitHandler}>
-               {this.props.children}
-             </form>
-           </div>
+    let classes = ['input']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'method', 'action', 'onSubmit'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    return <form
+           id={this.props.id || null}
+           className={classes}
+           method={this.props.method || 'POST'}
+           action={this.props.action || '/'}
+           onSubmit={this.submitHandler}>
+           {this.props.children}
+           </form>
 
   }
 
@@ -102,18 +145,27 @@ export class Input extends React.Component {
 
   render() {
 
-    return <div className="input-wrapper">
+    let classes = ['input']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'name', 'type', 'disabled', 'onChange'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    return <fieldset className="input-wrapper">
             {this.props.label && 
             <label htmlFor={this.props.id}>{this.props.label}</label>}
             <input 
               id={this.props.id}
+              className={classes}
               name={this.props.name}
               value={this.state.value}
               type={this.props.type || 'text'}
               required={this.props.required || false}
               disabled={this.state.disabled}
               onChange={this.changeHandler}/>
-           </div>
+           </fieldset>
 
   }
 
@@ -154,17 +206,26 @@ export class Textarea extends React.Component {
 
   render() {
 
-    return <div className="input-wrapper">
+    let classes = ['textarea']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'name', 'type', 'disabled'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    return <fieldset className="textarea-wrapper">
              {this.props.label &&
              <label htmlFor={this.state.id}>{this.props.label}</label> }
              <textarea
                id={this.props.id}
+               className={classes}
                name={this.props.name}
                value={this.state.value}
                required={this.props.required || false}
                disabled={this.state.disabled}
                onChange={this.changeHandler}/>
-           </div>
+           </fieldset>
 
   }
 
@@ -206,11 +267,20 @@ export class Select extends React.Component {
 
   render() {
 
-    return <div className="input-wrapper">
+    let classes = ['select']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'name', 'type', 'disabled'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    return <fieldset className="select-wrapper">
              {this.props.label &&
              <label htmlFor={this.state.id}>{this.props.label}</label> }
              <select
                id={this.props.id}
+               className={classes}
                name={this.props.name}
                value={this.state.value}
                required={this.props.required || false}
@@ -218,7 +288,113 @@ export class Select extends React.Component {
                onChange={this.changeHandler}>
                {this.props.children}
              </select>
-           </div>
+           </fieldset>
+
+  }
+
+}
+
+
+
+/**
+ * @method Elements/Forms/Button
+ * @description Authenticates a user via the Plex API using
+ *              the provided username and password.
+ * 
+ * @param [value] string
+ * @param [label] string
+ * @param [disabled] boolean
+ * @param [required] boolean
+ * @param [onChange] function
+ * 
+ * @return [<Button/>] Component
+ */
+
+export class Button extends React.Component {
+
+  constructor(props) {
+
+    super(props)
+    this.state = {}
+
+  }
+
+  ClickHandler = (e) => {
+
+    if(this.props.onClick) this.props.onClick(e)
+
+  }
+
+  render() {
+
+    let classes = ['button']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'type', 'disabled', 'onClick'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    if(this.props.className) classes.push(this.props.className)
+
+    return <button
+             id={this.props.id || null}
+             className={classes.join(' ')}
+             type={this.props.type || 'button'}
+             disabled = {this.props.disabled || false}
+             onClick={this.ClickHandler}>
+             {this.props.children}
+           </button>
+
+  }
+
+}
+
+
+
+/**
+ * @method Elements/Forms/CheckButton
+ * @description Authenticates a user via the Plex API using
+ *              the provided username and password.
+ * 
+ * @param [value] string
+ * @param [label] string
+ * @param [disabled] boolean
+ * @param [required] boolean
+ * @param [onChange] function
+ * 
+ * @return [<Button/>] Component
+ */
+
+export class CheckButton extends React.Component {
+
+  constructor(props) {
+
+    super(props)
+    this.state = {}
+
+  }
+
+  render() {
+
+    let classes = ['check-button']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'name', 'value', 'checked'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    if(this.props.className) classes.push(this.props.className)
+
+    return <label
+             id={this.props.id || null}
+             className={classes.join(' ')}
+             type={this.props.type || null}
+             disabled = {this.props.disabled || false}>
+             <input type="checkbox" name={this.props.name} value={this.props.value} defaultChecked={this.props.checked || false}/>
+             <span>{this.props.children}</span>
+           </label>
 
   }
 

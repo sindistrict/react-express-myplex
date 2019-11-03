@@ -39,7 +39,7 @@ export class Row extends React.Component {
 
   render() {
 
-    let classes = []
+    let classes = ['row']
 
     for(let prop in this.props) {
 
@@ -49,7 +49,7 @@ export class Row extends React.Component {
 
     if(this.props.className) classes.push(this.props.className)
 
-    return <div className={"row " + classes.join(' ')}>
+    return <div className={classes.join(' ')}>
             {this.props.children}
            </div>
 
@@ -83,7 +83,7 @@ export class Column extends React.Component {
 
   render() {
 
-    let classes = []
+    let classes = ['column']
 
     for(let prop in this.props) {
 
@@ -93,7 +93,7 @@ export class Column extends React.Component {
 
     if(this.props.className) classes.push(this.props.className)
 
-    return <div className={"column " + classes.join(' ')}>
+    return <div className={classes.join(' ')}>
              <div className="column-inner">
                {this.props.children}
              </div>

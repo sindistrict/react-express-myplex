@@ -1,6 +1,7 @@
 import React from 'react'
-import {Row, Column} from '../elements/grid'
-import {Form, Input} from '../elements/forms'
+import Axios from 'axios'
+
+import {Form, Input, Button} from '../elements/forms'
 import {Notice} from '../elements/alerts'
 
 export default class LoginForm extends React.Component {
@@ -8,34 +9,37 @@ export default class LoginForm extends React.Component {
   constructor(props) {
 
     super(props)
-
-    this.state = { response: false, state: 'pending' }
+    this.state = { notice: false }
 
   }
 
-  formSubmit = (e, credentials) => {
+  formSubmit = (e, data) => {
+
+    e.preventDefault()
 
     const _this = this
 
-    console.log(credentials)
+    Axios.post('/api/user-login', data).then(response => {
 
-    _this.setState({ response: 'The form has been submitted...', state: 'loading' })
-    e.preventDefault()
+      localStorage.setItem('authToken', response.data.authToken)
+      if(_this.props.onSubmit) _this.props.onSubmit(e, response.data)
+
+    }).catch(error => {
+
+      console.log(error)
+
+    })
 
   }
 
   render() {
 
-    return <Row justify="center">
-      <Column xs="12" md="6" align="center">
-        <Form onSubmit={(e, credentials) => this.formSubmit(e, credentials)}>
-          <Input type="text" name="login" value=""/>
-          <Input type="password" name="password" value=""/>
-          {this.state.response && <Notice>{this.state.response}</Notice> }
-          <button type="submit">Submit</button>
-        </Form>
-      </Column>
-    </Row> 
+    return <Form onSubmit={(e, data) => this.formSubmit(e, data)}>
+             <Input label="Username" type="text" name="login" value=""/>
+             <Input label="Password" type="password" name="password" value=""/>
+             {this.state.notice && <Notice>{this.state.notice}</Notice> }
+             <Button type="submit">Sign In</Button>
+           </Form>
 
   }
 

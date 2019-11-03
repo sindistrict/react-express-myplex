@@ -1,16 +1,18 @@
 const Axios = require('axios')
 const XML2JS = require('xml2js')
 
-module.exports = (server) => {
+module.exports = (DB, server) => {
 
-  server.get('/api/servers', (req, res) => {
+  server.get('/api/plex-servers', (req, res) => {
 
     const _res = res
     let servers = []
 
+    const Owner = DB.get('users').filter({isOwner: true}).value()[0]
+
     Axios.get('https://plex.tv/pms/servers', {
 
-      headers: { 'X-Plex-Token': 'RUKesxLwTSu52XSqKRnd' }
+      headers: { 'X-Plex-Token': Owner.authToken }
 
     }).then(response => {
 

@@ -44,6 +44,12 @@ export class Notice extends React.Component {
 
       this.setState({ visible: 'true' })
 
+      setTimeout(() => {
+
+        this.setState({ visible: 'false' })
+
+      }, 3000)
+
     }, 1000)
 
     return <div 

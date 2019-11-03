@@ -1,4 +1,6 @@
 import React from 'react'
+import Axios from 'axios'
+
 import { render as Render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch, Redirect, useParams } from 'react-router-dom'
 
@@ -23,114 +25,139 @@ import NotFound from './pages/404'
 import NotAuthorized from './pages/401'
 
 
-/**
- * Initialize the React application.
- */
+const authToken = localStorage.getItem('authToken') || false
 
-const Application = () => {
+Axios.post('/api/authenticate', {authToken}).then(response => {
 
+  const Server = response.data
 
-  /**
-   * PrivateRoute
-   */
-
-  function PrivateRoute({children, ...rest}) {
-
-    const authenticated = false
-
-    return <Route {...rest} render={({location}) => 
-           authenticated ? (children) : (
-           <Redirect to={{ pathname: "/login", state: {from: location} }}/>
-           )}/>
-
-  }
+  /** Start the engine. */
+  const Application = () => {
 
 
-  /**
-   * AdminRoute
-   */
+    /**
+     * PrivateRoute
+     */
 
-  function AdminRoute({children, ...rest}) {
+    function LoginRoute({children, ...rest}) {
 
-    const authenticated = false
-    const isAdmin = false
+      const authenticated = 'user' in Server && Server.user !== false
 
-    return <Route {...rest} render={({location}) => 
-           (authenticated && isAdmin) ? (children) : (
-           <NotAuthorized/>
-           )}/>
+      return <Route {...rest} render={({location}) => 
+            !authenticated ? (children) : (
+            <Redirect to={{ pathname: "/", state: {from: location} }}/>
+            )}/>
 
-  }
+    }
 
 
-  const LoadLibrary = () => {
+    /**
+     * PrivateRoute
+     */
 
-    return <Library params={useParams()} />
+    function PrivateRoute({children, ...rest}) {
 
-  }
+      const authenticated = 'user' in Server && Server.user !== false
 
-  const LoadMedia = () => {
+      return <Route {...rest} render={({location}) => 
+            authenticated ? (children) : (
+            <Redirect to={{ pathname: "/login", state: {from: location} }}/>
+            )}/>
 
-    return <Media params={useParams()} />
+    }
 
-  }
 
-  const isSetup = true
+    /**
+     * AdminRoute
+     */
 
-  if(isSetup) {
+    function AdminRoute({children, ...rest}) {
 
-    return <Router>
-           <Switch>
+      const authenticated = 'user' in Server
+      const isAdmin = authenticated && Server.user.isAdmin
 
-             <Route exact path="/setup">
-               <Redirect to={{ pathname: "/"}}/>
-             </Route>
+      return <Route {...rest} render={({location}) => 
+            (authenticated && isAdmin) ? (children) : ( <NotAuthorized/> )}/>
 
-             <PrivateRoute exact path="/">
-               <Home/>
-             </PrivateRoute>
+    }
 
-             <Route exact path="/login">
-               <Login/>
-             </Route>
 
-             <AdminRoute exact path="/admin">
-               <Admin/>
-             </AdminRoute>
+    const LoadLibrary = () => {
 
-             <PrivateRoute exact path="/:library">
-               <LoadLibrary/>
-             </PrivateRoute>
+      return <Library params={useParams()} />
 
-             <PrivateRoute exact path="/:library/:media">
-               <LoadMedia/>
-             </PrivateRoute>
+    }
 
-             <PrivateRoute>
-               <NotFound/>
-             </PrivateRoute>
+    const LoadMedia = () => {
 
-           </Switch>
-         </Router>
+      return <Media params={useParams()} />
 
-  }else{
+    }
 
-    return <Router>
+    if(Server.configured) {
+
+      return <Router>
              <Switch>
-               <Route exact path="/setup">
-                 <Setup/>
-               </Route>
-               <Redirect to={{ pathname: "/setup"}}/>
-             </Switch>
-           </Router>
+
+              <Route exact path="/setup">
+                <Redirect to={{ pathname: "/"}}/>
+              </Route>
+
+              <PrivateRoute exact path="/">
+                <Home/>
+              </PrivateRoute>
+
+              <LoginRoute exact path="/login">
+                <Login/>
+              </LoginRoute>
+
+              <AdminRoute exact path="/admin">
+                <Admin/>
+              </AdminRoute>
+
+              <PrivateRoute exact path="/libraries">
+                <Redirect to='/'/>
+              </PrivateRoute>
+
+              <PrivateRoute exact path="/:library">
+                <LoadLibrary/>
+              </PrivateRoute>
+
+              <PrivateRoute exact path="/:library/:media">
+                <LoadMedia/>
+              </PrivateRoute>
+
+              <PrivateRoute>
+                <NotFound/>
+              </PrivateRoute>
+
+            </Switch>
+          </Router>
+
+    }else{
+
+      return <Router>
+              <Switch>
+                <Route exact path="/setup">
+                  <Setup/>
+                </Route>
+                <Redirect to={{ pathname: "/setup"}}/>
+              </Switch>
+            </Router>
+
+    }
 
   }
 
-}
+
+  /** Render the React application. */
+  Render(<Application/>, document.getElementById('main'));
 
 
-/**
- * Render the React application.
- */
 
-Render(<Application/>, document.getElementById('main'));
+
+}).catch(error => {
+
+  console.log(error)
+
+})

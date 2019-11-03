@@ -32,7 +32,7 @@
   .column {
     flex-direction: column;
     flex: 1 0 auto;
-    @each $breakpoint, $pixels in ('xs': 0px, 'sm': 620px, 'md': 1024px, 'lg': 1336px) {
+    @each $breakpoint, $pixels in ('xs': 0px, 'sm': 420px, 'md': 800px, 'lg': 1100px, 'xl': 1336px) {
       @media screen and (min-width: #{$pixels}) { 
         &.#{$breakpoint}-0 {
           display: none;
