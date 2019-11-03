@@ -13,3 +13,4 @@ This application is build with React and Express running on a Node.js server.
 - [ ] Import list of all media items during library selection
 - [x] Convert all Sass files to user root variables instead of Sass variables
 - [ ] Add the ability to add custom styles / themes
+- [ ] Add a "Start Over" button to the setup page
