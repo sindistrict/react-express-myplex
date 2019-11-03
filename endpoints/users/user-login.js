@@ -15,14 +15,17 @@ module.exports = (DB, server) => {
 
       const user = response.data.user
 
-      DB.set(`users.${user.id}`, {
-        uuid: user.uuid,
-        email: user.email,
-        username: user.username,
-        avatar: user.thumb,
-        authToken: user.authToken,
-        loggedIn: true
-      }).write()
+      if(!DB.get(`users.${user.id}`).value()) {
+
+        DB.set(`users.${user.id}`, {
+          uuid: user.uuid,
+          email: user.email,
+          username: user.username,
+          avatar: user.thumb,
+          authToken: user.authToken
+        }).write()
+
+      }
 
       res.json(user)
 

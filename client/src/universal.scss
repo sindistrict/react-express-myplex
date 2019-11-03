@@ -7,13 +7,13 @@
 }
 
 html {
-  font-family: $theme-font-family;
-  font-size: $theme-font-size;
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size);
 }
 
 body {
-  background-color: $theme-background-color;
-  color: $theme-foreground-body-color;
+  background-color: var(--theme-background-color);
+  color: var(--theme-foreground-body-color);
   overflow-x: hidden;
   min-height: 100vh;
   font-weight: 400;
@@ -22,7 +22,7 @@ body {
 }
 
 button, input, optgroup, select, textarea {
-  font: 400 1rem $theme-font-family;
+  font: 400 1rem var(--theme-font-family);
   line-height: 1.15;
   font-size: 100%;
   margin: 0;

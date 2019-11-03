@@ -96,9 +96,11 @@ export class Form extends React.Component {
 
     }
 
+    if(this.props.className) classes.push(this.props.className)
+
     return <form
            id={this.props.id || null}
-           className={classes}
+           className={classes.join(' ')}
            method={this.props.method || 'POST'}
            action={this.props.action || '/'}
            onSubmit={this.submitHandler}>
@@ -153,12 +155,14 @@ export class Input extends React.Component {
 
     }
 
+    if(this.props.className) classes.push(this.props.className)
+
     return <fieldset className="input-wrapper">
             {this.props.label && 
             <label htmlFor={this.props.id}>{this.props.label}</label>}
             <input 
               id={this.props.id}
-              className={classes}
+              className={classes.join(' ')}
               name={this.props.name}
               value={this.state.value}
               type={this.props.type || 'text'}
@@ -214,12 +218,14 @@ export class Textarea extends React.Component {
 
     }
 
+    if(this.props.className) classes.push(this.props.className)
+
     return <fieldset className="textarea-wrapper">
              {this.props.label &&
              <label htmlFor={this.state.id}>{this.props.label}</label> }
              <textarea
                id={this.props.id}
-               className={classes}
+               className={classes.join(' ')}
                name={this.props.name}
                value={this.state.value}
                required={this.props.required || false}
@@ -275,12 +281,14 @@ export class Select extends React.Component {
 
     }
 
+    if(this.props.className) classes.push(this.props.className)
+
     return <fieldset className="select-wrapper">
              {this.props.label &&
              <label htmlFor={this.state.id}>{this.props.label}</label> }
              <select
                id={this.props.id}
-               className={classes}
+               className={classes.join(' ')}
                name={this.props.name}
                value={this.state.value}
                required={this.props.required || false}

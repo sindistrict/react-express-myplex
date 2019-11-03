@@ -97,6 +97,7 @@ Axios.post('/api/authenticate', {authToken}).then(response => {
     if(Server.configured) {
 
       return <Router>
+             <style>{localStorage.getItem('css') || ''}</style>
              <Switch>
 
               <Route exact path="/setup">

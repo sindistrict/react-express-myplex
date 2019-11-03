@@ -1,3 +1,10 @@
+/*
+@name Plex
+@description One of the default themes that comes with MyPlex, this theme uses the same color palette by the original Plex platform.
+@author SinDistrict <sindistrict.tv@gmail.com>
+@modified November 3, 2019
+*/
+
 :root {
 
   --theme-background-color: #FFFFFF;

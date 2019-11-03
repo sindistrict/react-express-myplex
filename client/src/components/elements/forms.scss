@@ -10,10 +10,10 @@ input[type=url],
 select, 
 textarea {
   -webkit-appearance: none;
-  transition: all $theme-transition-timing $theme-transition-easing;
-  border: 2px solid $theme-element-border-color;
+  transition: border-color var(--theme-transition-timing) var(--theme-transition-easing);
+  border: 2px solid var(--theme-element-border-color);
   box-shadow: 0 0 0 52px #FFFFFF inset;
-  color: $theme-foreground-body-color;
+  color: var(--theme-foreground-body-color);
   text-rendering: optimizeLegibility;
   background-color: #FFFFFF;
   border-radius: 3px;
@@ -24,14 +24,22 @@ textarea {
   outline: 0;
   &:-internal-autofill-selected,
   &:-webkit-autofill {
-    -webkit-text-fill-color: $theme-foreground-body-color !important;
-    color: $theme-foreground-body-color !important;
+    -webkit-text-fill-color: var(--theme-foreground-body-color) !important;
+    color: var(--theme-foreground-body-color) !important;
     font-size: 1rem !important;
   }
 }
 
 select {
   cursor: pointer;
+}
+
+textarea {
+  min-height: 104px;
+  resize: vertical;
+  &.code {
+    font-family: monospace;
+  }
 }
 
 input[type=password] {
@@ -62,14 +70,14 @@ fieldset {
     input[type=url], 
     select, 
     textarea {
-      border-color: $theme-element-border-color-active;
+      border-color: var(var(--theme-element-border-color)-active);
     }
   }
 }
 
 .button {
-  transition: all $theme-transition-timing $theme-transition-easing;
-  background-color: $theme-accent-primary-background;
+  transition: all var(--theme-transition-timing) var(--theme-transition-easing);
+  background-color: var(--theme-accent-primary-background);
   text-rendering: optimizeLegibility;
   letter-spacing: 0.25px;
   display: inline-block;
@@ -112,9 +120,9 @@ fieldset {
   margin: 0 1rem 0 0;
   cursor: pointer;
   > span {
-    transition: all $theme-transition-timing $theme-transition-easing;
-    border: 2px solid $theme-element-border-color;
-    color: $theme-foreground-body-color;
+    transition: all var(--theme-transition-timing) var(--theme-transition-easing);
+    border: 2px solid var(--theme-element-border-color);
+    color: var(--theme-foreground-body-color);
     background-color: #FFFFFF;
     border-radius: 3px;
     line-height: 52px;
@@ -123,8 +131,8 @@ fieldset {
     display: block;
     outline: 0;
     &::before {
-      transition: all $theme-transition-timing $theme-transition-easing;
-      color: $theme-element-border-color;
+      transition: all var(--theme-transition-timing) var(--theme-transition-easing);
+      color: var(--theme-element-border-color);
       font-family: 'icomoon';
       margin-right: 0.5rem;
       font-size: 1.25rem;
@@ -139,11 +147,15 @@ fieldset {
     left: -1000px;
     opacity: 0;
     &:checked + span {
-      border-color: $theme-accent-primary-background;
+      border-color: var(--theme-accent-primary-background);
       &::before {
-        color: $theme-accent-primary-background;
+        color: var(--theme-accent-primary-background);
         content: '\e917';
       }
     }
   }
+}
+
+.ace_editor {
+  width: 100% !important;
 }
