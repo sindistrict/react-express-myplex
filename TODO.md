@@ -1,6 +1,0 @@
-- [ ] Update all fetch callbacks to use Axiom instead
-- [x] Improve API callback functionality
-- [ ] Make sure all POST and GET requests can only be called by the server owner
-- [ ] Disabled all "Setup" API endpoints after installation
-- [ ] Import list of all media items during library selection
-- [ ] Convert all Sass files to user root variables instead of Sass variables
