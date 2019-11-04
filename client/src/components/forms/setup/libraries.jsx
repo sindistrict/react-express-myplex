@@ -53,6 +53,8 @@ export default class SetupLibraries extends React.Component {
 
       })
 
+      console.log(promise)
+
     }
 
   }
