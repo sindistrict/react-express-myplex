@@ -407,3 +407,54 @@ export class CheckButton extends React.Component {
   }
 
 }
+
+
+
+/**
+ * @method Elements/Forms/Progress
+ * @description Authenticates a user via the Plex API using
+ *              the provided username and password.
+ * 
+ * @param [value] string
+ * @param [label] string
+ * @param [disabled] boolean
+ * @param [required] boolean
+ * @param [onChange] function
+ * 
+ * @return [<Progress/>] Component
+ */
+
+export class Progress extends React.Component {
+
+  constructor(props) {
+
+    super(props)
+    this.state = {}
+
+  }
+
+  render() {
+
+    let classes = ['progress']
+
+    for(let prop in this.props) {
+
+      if(!['children', 'className', 'id', 'value', 'max'].includes(prop)) classes.push(`${prop}-${this.props[prop]}`)
+
+    }
+
+    if(this.props.className) classes.push(this.props.className)
+
+    const value = this.props.value || 0
+    const max = this.props.max || 100
+    const percent = (value / max * 100)
+
+    return <div
+             id={this.props.id || null}
+             className={classes.join(' ')}>
+             <span style={{width: `${percent}%`}}></span>
+           </div>
+
+  }
+
+}

@@ -70,7 +70,7 @@ fieldset {
     input[type=url], 
     select, 
     textarea {
-      border-color: var(var(--theme-element-border-color)-active);
+      border-color: var(--theme-element-border-color-active);
     }
   }
 }
@@ -158,4 +158,24 @@ fieldset {
 
 .ace_editor {
   width: 100% !important;
+}
+
+.progress {
+  box-shadow: 0 0 0 2px var(--theme-background-color), 0 0 0 4px var(--theme-element-border-color);
+  background-color: var(--theme-background-color);
+  width: calc(100% - 4px);
+  border-radius: 1000px;
+  position: relative;
+  margin-right: 2px;
+  margin-left: 2px;
+  overflow: hidden;
+  display: block;
+  height: 24px;
+  > span {
+    background-color: var(--theme-accent-primary-background);
+    border-bottom-right-radius: 1000px;
+    border-top-right-radius: 1000px;
+    display: block;
+    height: 100%;
+  }
 }

@@ -20,6 +20,7 @@ export default class Setup extends React.Component {
     this.state = {}
     this.state.step = parseInt(localStorage.getItem('setup_step')) || 0
     this.state.authToken = localStorage.getItem('authToken') || false
+    this.state.imported = ''
 
   }
 
@@ -60,14 +61,26 @@ export default class Setup extends React.Component {
   }
 
 
-  LibrariesSuccess(e, data) {
+  LibrariesSuccess(e, libraries) {
 
     const _this = this
 
-    Axios.post('/api/setup-libraries', data).then(response => {
+    Axios.post('/api/setup-libraries', libraries).then(data => {
 
-      localStorage.setItem('setup_step', 3)
-      _this.setState({step: 3})
+      // Object.keys(libraries).map(key => {
+
+      //   const library = libraries[key]
+
+      //   Axios.post('/api/plex-media', {key: library.key}).then(media => {
+
+      //     console.log(media)
+  
+      //   })
+
+      // })
+
+      // localStorage.setItem('setup_step', 3)
+      // _this.setState({step: 3})
 
     }).catch(error => {
 

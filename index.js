@@ -39,6 +39,8 @@ server.use(express.static(path.join(__dirname, 'client/build')))
 /** GET endpoints. */
 require('./endpoints/servers/fetch-servers')(DB, server)
 require('./endpoints/libraries/fetch-libraries')(DB, server)
+require('./endpoints/libraries/fetch-library')(DB, server)
+require('./endpoints/media/fetch-media')(DB, server)
 require('./endpoints/users/fetch-friends')(DB, server)
 
 /** POST endpoints. */
